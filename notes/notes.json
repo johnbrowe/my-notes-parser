@@ -1,0 +1,31 @@
+{
+  "0": [
+    "<h1>4. Relative CSS link</h1>",
+    "<p>I typical mistake is to make CSS links relative by not using / at the start of the link.</p>",
+    "<p>    <link href='css/main.css' rel='stylesheet' type='text/css'></p>",
+    "<p>it should instead be</p>",
+    "<p>    <link href='/css/main.css' rel='stylesheet' type='text/css'></p>",
+    "<p>\nWrite more about this..........</p>"
+  ],
+  "1": [
+    "<h1>3. Wordpress WYSIWYG not showing</h1>",
+    "<p>The WP WYSIWYG just disappeared out of no where for me.</p>",
+    "<p>My fix was to go to Users -> Profile (f.eks. Admin)</p>",
+    "<p>Check the Visual Editor checkbox</p>",
+    "<p>then save and </p>",
+    "<p>then uncheck checkbox and save</p>",
+    "<p>\nThis worked for me</p>"
+  ],
+  "2": [
+    "<h1>2. Element disappeared on float</h1>",
+    "<p>First problem was that i had set ul to float left, and when i figured out to set li to float it still disappeared.</p>",
+    "<p>The solution was found in Stackoverflow, which was to set ul to overflow: hidden;</p>",
+    "<p>http://stackoverflow.com/questions/19775657/div-background-hide-when-i-use-float-left-on-li-menu</p>"
+  ],
+  "3": [
+    "<h1>1. WP child page menu</h1>",
+    "<p>Here is a great video about how to create a child page menu.</p>",
+    "<p>I did not use the array_reverse function.</p>",
+    "<p>https://www.youtube.com/watch?v=GHTZn3atTcM</p>"
+  ]
+}
