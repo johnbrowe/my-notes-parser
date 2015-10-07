@@ -1,9 +1,10 @@
 {
   "name": "my_notes",
   "version": "0.0.1",
-  "description": "A node parser which transform my notes txt syntax to HTML elements inside an JSON object.",
-  "main": "gulpfile.js",
+  "description": "git",
+  "main": "parse",
   "dependencies": {
+    "dotenv": "^1.2.0",
     "jsonfile": "^2.2.2",
     "underscore": "^1.8.3"
   },

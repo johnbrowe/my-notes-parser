@@ -1,8 +1,13 @@
-var fs = require('fs'),
-    jsonfile = require('jsonfile'),
-    _  = require('underscore');
+var dotenv = require('dotenv');
+var fs = require('fs');
+var jsonfile = require('jsonfile');
+var _  = require('underscore');
 
-fs.readFile('notes/notes.txt', 'utf8', function (err,data) {
+// Load enviroment variables
+dotenv.load();
+var notes_path = process.env.NOTES_PATH;
+
+fs.readFile(notes_path + 'notes.txt', 'utf8', function (err,data) {
 
     if (err) {
         return console.log(err);
@@ -42,8 +47,8 @@ fs.readFile('notes/notes.txt', 'utf8', function (err,data) {
 
     var newObject = _.extend({}, newArray);
 
-    jsonfile.writeFile("notes/notes.json", newObject, {spaces: 2}, function (err) {
+    jsonfile.writeFile(notes_path + 'notes.json', newObject, {spaces: 2}, function (err) {
         console.error(err)
-    })
+    });
 
 });
