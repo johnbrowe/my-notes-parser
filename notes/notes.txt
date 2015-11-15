@@ -1,3 +1,1148 @@
+﻿----
+
+78. Button should not submit
+
+I guess by default button type is "submit", so if you want button not to submit form.
+
+<button type="button"></button> // This will not submit
+
+----
+
+77. PHPStorm file encoding
+
+For some reason PHPStorm keept encoding some windows encoding which was kind of annoying.
+
+To get rid of this problem just go to settings -> Editor -> File Encodings Her you can change Ide Encodings, Project Encodings, Default encodings for properties files to UTF-8.
+
+If you want this to be default on all projects do the same thing on "Default Settings".
+
+
+
+----
+
+76. Accordion pure CSS (SASS)
+
+http://codepen.io/mjtweaver/pen/bVxrEW
+
+----
+
+75. Get index of element in JavaScript
+
+Get index of element in relation to it's siblings:
+
+function indexOfNode (node) {
+   return [].indexOf.call(node.parentNode.children, node.target)
+}
+
+----
+
+74. Stop program from starting on open Windows 7
+
+Windows start
+
+Search and click msconfig
+
+Click startup tab
+
+Uncheck unwanted startup program
+
+----
+
+73. Find object property in Array
+
+Im falling in love with underscore.
+
+I needed to get the index of a name in a object in an array.
+
+And underscore a has many options. I used this:
+
+var users = [{'id': 1, 'name': 'Bob', 'last': 'Brown'},
+             {'id': 2, 'name': 'Ted', 'last': 'White'},
+             {'id': 3, 'name': 'Frank', 'last': 'James'},
+             {'id': 4, 'name': 'Ted', 'last': 'Jones'}];
+
+_.findLastIndex(users, {
+  name: 'Ted'
+});
+
+// 3
+
+Link: http://underscorejs.org/#indexOf
+
+----
+
+72. Vue.js passing args to the event function
+
+HTML should look like this:
+<ul id="demo">
+  <li v-for="item in items" class="item-{{$index}}" v-on:click.stop.prevent="onClick(item)">
+    {{ $index }} - {{ parentMsg }} {{ item.childMsg }}
+  </li>
+</ul>
+
+Javascript should look like this: 
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    parentMsg: 'Hello',
+    items: [
+      { childMsg: 'Foo' },
+      { childMsg: 'Bar' },
+      { childMsg: 'bla' },
+      { childMsg: 'sma' }
+    ]
+  },
+   methods: {
+    onClick: function (obj) {
+      console.log(obj.childMsg);
+    }
+  }
+})
+
+
+As you can see we pass the argument "onclick(item)" which is the same as the v-for item.
+
+----
+
+71. MySQL workbench alternative
+
+I've been using MySQL workenbench on Windows for a couple of years and it has always suited my needs, 
+but lately it has crashed more than my patience could handle. It mainly could not handle large tables.
+
+
+So I tried out a couple of DB gui's for example Heidi SQL and Navicat.
+
+I had problems with getting Heidi SQL to ssh in into Homestead (my Laravel envirment) so I could not use it.  
+
+Navicat worked perfectly but it's very expensive.
+
+Then I tried SQLWave and for my simple needs it works perfectly, there is nothing it can't handle in my enviroment and it's very easy to work with.
+
+----
+
+70. Vue.js show data
+
+Here is nice snippet for seeing which data you are working with.
+
+<pre>@{{ $data | json }}</pre>
+
+----
+
+69. ES6 features I really like
+
+Variables:
+Let
+Const
+
+Arrow Functions
+
+
+String methods:
+'hello world'.startsWith('hello'); //true
+'hello world'.endsWith('hello'); // false
+'hello world'.includes('hel'); // true
+'hello '.repeat(3); // 'hello hello hello '
+
+
+let name = 'Simon';
+console.log(`Hello ${name}.`);
+
+
+----
+
+68. Quickly get css prefixes
+
+New pen on Code Pen
+Add CSS
+Add autoprefixer on CSS settings
+View compiled
+
+Copye autoprefixed code and paste where ever you need it.
+
+----
+
+67. Xdebug and Homestead
+
+XDebug is fantastic but it is hard to get working.
+
+Just a note last time my problem was absolute path.
+
+I had set the right path to the public folder, my problem was I also needed the absolute path to the root folder.
+
+C:sites/mysite => /home/vagrant/mysite
+public => /home/vagrant/mysite/public
+
+
+Here is a good link:
+https://laracasts.com/forum/?p=1648-phpstorm-homestead-xdebug/0
+
+
+----
+
+66. CSS checkbox
+
+Nice checkbox styling:
+
+Link: http://codepen.io/bbodine1/pen/novBm?editors=110
+
+
+----
+
+65. Reset SSD Ubuntu 15.04
+
+cd /dev/
+sudo hdparm -I sda
+
+Then it will show some text, we are interested in this part, specically the part that says frozen:
+
+"
+Security: 
+	Master password revision code = 65534
+		supported
+	not	enabled (this should be enabled)
+	not	locked
+		frozen  (this should be not frozen)
+	not	expired: security count
+		supported: enhanced erase
+	4min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT. 
+"
+
+We want it to say not frozen and enabled
+
+To do this write:
+systemctl suspend
+
+The system will suspend and then start up again, when it does write "sudo hdparm -I sda" again. 
+
+Now it will say:
+not	frozen
+
+Now type to change enabled to not enabled:
+sudo hdparm --user-master u --security-set-pass A-pass-word sda
+
+Then the cli will display:
+security_password="A-pass-word"
+
+If you type sudo "hdparm -I sda" it should say: 
+
+enabled (instead of not    enabled)
+
+
+Final step, which will wipe the SSD which mean everything on the SSD will be lost, so backup if have something on that want.
+
+Now type:
+hdparm --user-master u --security-erase A-pass-word sda
+
+Links: 
+https://www.youtube.com/watch?v=bMir8LOXX6U
+https://ata.wiki.kernel.org/index.php/ATA_Secure_Erase
+
+
+﻿----
+
+64. Wordpress Migration Plugins
+
+I mainly use this plugin, if I do not have a CPanel or MySQL GUI.
+
+Duplicator
+
+https://wordpress.org/plugins/duplicator/
+
+
+----
+
+63. Could not ssh into server
+
+I had forgotten all my credentials to a remote server, which I really wanted to log in to. It was a digitalocean server so I could just login to my account and reset the password.
+
+After this I tried to ssh in to the server in any possible way, but I just could not. 
+
+When I wrote ssh root@ip_address
+
+I got "permission denied".
+
+So I figured out problem which was that I tried to ssh in with root and by default login in with root is not permitted. 
+
+To test if this was the case I accessed to web console droplet and wrote:
+nano /etc/ssh/sshd_config
+
+So in this file I changed "PermitRootLogin no" to "PermitRootLogin yes" and then: 
+
+sudo service ssh restart
+
+After this I had not problem loggin in. 
+
+My guess is that there is a reason why root is not permitted login by default, so I changed it back "PermitRootLogin no" and figured out how to create another user. 
+
+Link: http://askubuntu.com/questions/497895/permission-denied-for-rootlocalhost-for-ssh-connection
+
+----
+
+62. Wordpress removing subfolder from URL
+
+I used this link: 
+
+http://www.wpbeginner.com/wp-tutorials/how-to-get-rid-of-wordpress-from-your-wordpress-site-url/
+
+----
+
+61. Installing New Relic Node
+
+Here is a good video:
+
+https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/installing-maintaining-nodejs
+
+----
+
+60. Node forever
+
+npm install forver -g
+
+
+cd to you project and then:
+
+forever start index.js
+
+to stop forever just type:
+
+forever stop index.js
+
+----
+
+59. Kill Node process
+
+Usually when you want to quit a node server you press CTRL + C or CTRL + Z.
+
+But if you want to stop the Node server where you have killed of the terminal that you used to start Node.
+
+You get this error if you try to start node again:
+
+Error: listen EADDRINUSE :::3000
+    at Object.exports._errnoException (util.js:837:11)
+    at exports._exceptionWithHostPort (util.js:860:20)
+    at Server._listen2 (net.js:1231:14)
+    at listen (net.js:1267:10)
+    at Server.listen (net.js:1363:5)
+    at EventEmitter.listen (/root/my-site/node_modules/express/lib/application.js:617:24)
+    at Object.<anonymous> (/root/my-site/index.js:33:5)
+    at Module._compile (module.js:434:26)
+    at Object.Module._extensions..js (module.js:452:10)
+    at Module.load (module.js:355:32)
+
+You can fix this with:
+
+Write:
+ps aux | grep node
+
+Find the process ID, which second from the left (in my case 4 digits) it should look something like this:
+
+root      xxxx  0.0  xx xxxxxx xxxxx pts/0    Sl+  09:18   0:00 node index.js
+root      xxxx  0.0  xx  xxxxx   xxx pts/4    S+   09:41   0:00 grep --color=au
+
+Then write:
+kill -9 PROCESS_ID
+
+For example:
+kill -9 4485
+
+
+and then you are good to go.
+ 
+
+----
+
+58. Bash commands
+
+create directory:
+mkdir foldername
+
+remove folder:
+rm -r foldername
+
+create file:
+touch filename
+
+show current directory list:
+ls
+
+show current directory list with hidden files:
+ls -a
+
+show current directory:
+pwd
+
+Copy file to current directory
+cp path/filename .
+
+
+Here are some nice ones as well: 
+
+https://www.quora.com/What-are-some-of-the-best-command-prompt-or-terminal-tricks
+
+----
+
+57. Enviroment Variables in Node
+
+Here is a fine tut on enviroment variables in Node:
+
+https://sendgrid.com/blog/node-environment-variables/
+
+----
+
+56. SSH - Host key verification failed.
+
+I had just started a new droplet on Digitalocean with an SSH key, but I could not ssh. I keept getting this error.
+
+- Host key verification failed.
+
+This can often be caused of ssh know host, and often I just delete it.
+
+But in this case the problem was more embarrising.
+
+When the question - Are you sure you want to continue connecting (yes/no)? was set I just pressed ENTER.
+
+This is not enough you must type:
+
+yes (enter)
+
+
+----
+
+55. Check jQuery is loaded
+
+window.onload = function() {
+    if (window.jQuery) {
+        // jQuery is loaded  
+        alert("Yes, jQuery is here!");
+    } else {
+        // jQuery is not loaded
+        alert("Not loaded");
+    }
+}
+
+---- 
+
+54. Express Generator commands
+
+Start project:
+npm install -g express
+npm install -g express-generator
+npm install
+
+To start app:
+npm start
+
+http://127.0.0.0:3000
+
+
+Link: https://www.airpair.com/javascript/complete-expressjs-nodejs-mongodb-crud-skeleton
+
+----
+
+53. Express starter
+
+npm init
+
+npm install express -save
+
+Here is my usual hello world snippet:
+
+var express = require('express');
+var app = express();
+
+homepage
+app.get('/', function(req, res) {
+    res.send('hello world');
+});
+
+
+app.listen(5000);
+console.log("App running on localhost:5000");
+
+----
+
+52. PhpStorm update directory
+
+To keep PhpStorm directory in sync right click on directory root and click on syncronize "folder name".
+
+----
+
+51. Show hidden files
+
+Start FileZilla, and then select the Server menu.
+Select Force Showing Hidden Files.
+
+----
+
+50. Convert array to object with Underscore
+
+var _ = require('underscore');
+
+var a = [ 'a', 'b', 'c' ];
+var obj = _.extend({}, a);
+console.log(obj);
+// prints { '0': 'a', '1': 'b', '2': 'c' }
+
+Link: http://stackoverflow.com/questions/4215737/convert-array-to-object
+
+----
+
+49. JavaScript Remove empty string from array
+
+arr = arr.filter(Boolean)
+
+http://stackoverflow.com/questions/19888689/remove-empty-strings-from-array-while-keeping-record-without-loop
+
+----
+
+48. Click Safari Mobile
+
+I click on Safari mobile was not working for me, worked every where else. Solution was to add an empty onclick="" to the menu item.
+
+<div class="menu_item" onclick=""></div>
+
+Link: http://stackoverflow.com/questions/7892863/jquery-click-not-working-with-ipad
+
+----
+
+47. My computers IP Windows
+
+Here is a link:
+
+http://windows.microsoft.com/da-dk/windows/find-computers-ip-address#1TC=windows-7 (Danish)
+
+Click Start
+Click Kontrolpanel
+Skriv adapter i search
+Click Vis netv�rksforbindelser.
+
+Click aktiv netv�rksforbindelse
+Click Vis status for denne forbindelse p� v�rkt�jslinjen
+Click detaljer
+
+----
+
+46. A git to remember
+
+git add -A
+
+// to add all repo 
+git add .
+
+// Undo add
+git reset .
+
+// Remove cached 
+git rm -r --cached directory-name
+
+// Remove all files which are in gitignore
+git rm --cached `git ls-files -i --exclude-from=.gitignore` 
+
+// Commit all
+git commit
+git pull
+git push
+
+//Remove cached files, which you want to ignore
+git rm -r --cached "path"
+
+in my case I do
+
+git rm -r --cached public/css/
+git rm -r --cached public/js/
+git rm -r --cached public/build/
+
+----
+
+45. Disable/turn off autosave on PHPStorm
+
+Sometimes auto save does not really work so well with File watchers and you really like the watcher only to react when you hitt Save.
+
+Here is what you do 
+
+Unchecked - Settings / Appearance & Behavior / System Settings / Save file on frame deactivation
+Unchecked - Settings / Appearance & Behavior / System Settings / Save files automatically if...
+Unchecked - Settings / Editor / General / Editor tabs / Mark modified tabs with asterisk 
+
+This solution was found in stackoverflow on this link:
+http://stackoverflow.com/questions/15604889/how-to-turn-off-automatic-saving-on-web-storm
+
+
+----
+
+44. Shortening line with CSS
+
+http://codepen.io/siiron/pen/jfBhy/?editors=110
+
+
+----
+
+43. MySQL Workbench login to homestead
+
+Choose connection method: Standard TCP/IP over SSH
+
+Connection name: What Ever you want
+SSH Hostname: 127.0.0.1
+SSH Username: vagrant
+SSH Key File: if you don't have a key you need to create one with putty or through git bash
+MySQL hostname: 127.0.0.1
+MySQL Server Port: 3306
+Username: homestead
+password: secret	
+
+
+http://stackoverflow.com/questions/27202109/unable-to-access-the-database-of-homestead-environment-laravel-through-mysql-w
+
+----
+
+42. Set path and enviroment variables Windows 7
+
+Right-click the Computer icon and select Properties. 
+Click the Advanced System Settings it on the left hand side.
+In the System Properties window, click on the Advanced tab, then click the Environment Variables.
+In the Environment Variables window highlight the Path variable in the "System variables" section and click the Edit button. 
+Add or modify the path lines with the paths you want the computer to access. 
+
+You can also set the path via the command prompt (search: cmd)
+For example I set my path when installing nodejs like this.
+If the path is: C:\Program Files\Nodejs do like this.
+
+This string will be set the enviroment variable til you close prompt:
+SET PATH=C:\Program Files\Nodejs;%PATH%
+
+This will set the variable for good:
+setx path "%path%;C:\Program Files\Nodejs"
+
+Links:
+http://www.computerhope.com/issues/ch000549.htm
+http://stackoverflow.com/questions/12155268/ruby-environment-variables
+
+----
+
+41. Getting Gulp to work on Windows 7 
+
+I have had a hard time gettin Gulp and Bower to work on windows, and especially on git bash which I prefer.
+
+The problem was that after installing everything I needed it still gave the error:
+$Gulp
+sh.exe": Gulp: command not found
+
+$bower
+sh.exe": bower: command not found
+
+I got it to work on the command prompt but still would not work in Git BASH until i set a enviroment variable to:
+C:\Users\me\AppData\Roaming\npm;
+
+
+http://stackoverflow.com/questions/23638431/issue-installing-bower-on-windows
+
+----
+
+40. Bootstrap Column Ordering
+I keep forgetting the name of this usefull function
+
+This is mainly when you  need to change order of the column layout.
+
+http://getbootstrap.com/css/#grid-column-ordering
+
+----
+
+39. Z-index only working in Chrome bug
+I had a cross browser bug which involved z-index only not working in Chrome, the solution was to change position to absolute instead of relative.
+ 
+.element {
+  position: relative;
+  z-index: 1;
+}
+
+to 
+
+.element {
+  position: absolute;
+  z-index: 1;
+}
+
+----
+
+38. Shy hyphens
+
+If you need a "tag" which will set the dash where you want on line break shy is the answer.
+
+&shy; 
+
+for example:
+
+Progmm&shy;ing
+
+
+Link: http://www.impressivewebs.com/new-css3-text-wrap/
+
+----
+
+37. Currenct path in command line
+
+If you want the full path to current directory/folder in the command line.
+
+In Windows:
+chdir
+
+In ubuntu (guess in most linux OS):
+pwd
+ 
+----
+
+36. Bower update error
+After updating Bower i got this message.
+-bash: /usr/bin/bower: No such file or directory
+
+After trying different solutions i ended up with just trying to install it again:
+sudo npm install -g bower
+
+And it worked like a charm.
+
+----
+
+35. Vagrant Box stopped working
+
+I got this error after updating homestead.
+
+My solution was to delete current version, installing it again. 
+In my case when updating there where 2 box versions, I think this could have been the problem though im not sure.
+
+Open command line and write: 
+vagrant box list
+
+to see what boxes you have. In my case this was the result:
+laravel/homestead (virtualbox, 0.2.5)
+laravel/homestead (virtualbox, 0.2.6)
+
+To delete them you write:
+vagrant box remove laravel/homestead --box-version 0.2.5
+vagrant box remove laravel/homestead --box-version 0.2.6
+
+After that cd to the homestead folder and write:
+vagrant add laravel/homestead
+
+
+----
+
+34. Share email button
+Just a snippet for sharing a page
+
+<a href="mailto:?subject=Header text;body=Nice news"
+   title="Share by Email">
+  <i class="fa fa-envelope-o"></i> <!-- or some other icon (this snippet depends on font-awesome) -->
+</a>
+
+Link: http://stackoverflow.com/questions/5045918/adding-a-share-by-email-link-to-website
+
+----
+
+33. Javascript round up to nearest number
+
+Here is how:
+
+2 * Math.round(number / 2);
+
+Example
+2 * Math.round(3 / 2);  /* output 4 */
+2 * Math.round(8 / 2);  /* output 8 */
+2 * Math.round(11 / 2); /* output 12 */
+
+
+----
+
+32. CSS vertical align text - 23.06.2015
+
+There are different ways to vertical align text, for example with table.
+
+But I find this as the easiest way, add this to the div. you are trying to align.
+
+In my case:
+
+HTML:
+<div class="single-activity">
+    <span>Sprint</span>
+</div>
+
+CSS:
+.single-activity {
+height: 45px;
+line-height: 45px;
+vertical-align: middle;
+}
+
+
+
+Inspiration links:
+http://stackoverflow.com/questions/9249359/is-it-possible-to-vertically-align-text-within-a-div
+
+----
+
+31. CSS + selector
+
+The + selector comes in handy sometimes.
+
+.class + p { background: green; }
+
+It will selects all p's that are placed immediately after .class
+
+----
+
+30. Windows 7 Hostfile path
+
+C:\Windows\System32\drivers\etc 
+
+Remember to run Nodepad or another editor as Administrator to be able to edit, also change the .txt dropdown to All files.
+
+----
+
+29. Debugging/Freezing Bootstrap tooltips & popover
+It can be hard to style certain element because they disappear when you try to click on them.
+
+This is certainly the case with Bootstrap tooltips & popovers, when you try to inspect the element it will disappear.
+
+My solution is to this problem is to make them visible with JavaScript, here is how:
+
+$('[data-toggle="tooltip"]').tooltip('show');
+
+OR
+
+$('[data-toggle="popover"]').popover('show');
+
+then through the developer tool navigate through the HTML to the popover element which in this case will not disappear.
+
+----
+
+28. Click not working on iPhone
+
+I could not get a click event to fire on an iPhone, it worked on desktop.
+
+Solution: click event needed to be an <a> tag, so I just changed the element to <a> and the event fired perfectly. 
+
+Link: http://stackoverflow.com/questions/3705937/document-click-not-working-correctly-on-iphone-jquery
+
+----
+
+27. Styling width based on sibling count
+
+Here is a link to a good article on this subject.
+
+http://lea.verou.me/2011/01/styling-children-based-on-their-number-with-css3/
+
+----
+
+26. Responsive video
+
+I used this link to solve my responsive vimeo video. 
+
+https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+
+----
+
+25. Aspect ratio
+
+I needed to get the aspect ratio of an image, i new the
+
+This link helped me with aspect ratio.
+
+http://math.stackexchange.com/questions/180804/how-to-get-the-aspect-ratio-of-an-image
+
+----
+
+24.Flexbox float left
+
+Flexbox threats margin differently so to float left with flexbox write.
+
+margin-left: auto;
+
+Another way is:
+
+flex: 1;
+text-align: right;
+
+http://codepen.io/nickautomatic/pen/epYVaj
+
+http://stackoverflow.com/questions/22429003/right-aligning-flex-item
+
+----
+
+23. PhpStorm livetemplates not reacting on changes
+
+Remember to choose the right context to use the template.
+
+Right click on the create template and choose change context, then choose the context. 
+
+In my case i only wanted the template to be availible in Javascript.
+
+----
+
+22. GIT command for removing ignore files 
+
+git rm -r --cached "path"
+
+In my case
+
+git rm -r --cached public/css/
+
+----
+
+21. Location hash mobile not working
+
+Safari can read window.location.hash, but if you need to change hash you need to use window.location.href (twice safari bug).
+
+
+if ( $.browser.webkit == false ) {
+            window.location.hash = location.hash;
+        } else {
+            window.location.href = location.hash;
+            window.location.href = location.hash;
+        }
+
+
+http://stackoverflow.com/questions/6970769/window-location-hash-location-hash-does-not-work-in-webkit-safari-chrome
+ 
+----
+
+20. Ubuntu switch keyboard language
+In my Ubuntu 14.04 the text entry would not react or do anything, not sure why. It's a good thing we always can rely on the commandline, it's quite much faster as well.
+
+setxkbmap es
+or
+setxkbmap dk
+or
+setxkbmap fo
+
+
+
+To set it permanently you can do like this
+
+sudo nano /etc/default/keyboard
+
+This will appear:
+ 
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+
+Then change XKBLAYOUT="**" to the prefered language in my case
+XKBLAYOUT="dk"
+
+----
+
+19. Startcd PhpStorm-133.982/bin
+
+./phpstorm.sh PHPstorm cli Ubuntu
+I had problems starting PHPstorm as Ubuntu newbie, but figured it out by cd'ing to the bin directory in the PHP installation and starting the program by using ./ then a launch icon will be added to the desktop launch bar. Now you just right click the the PHPstorm icon a press "lock to launcher"
+
+cd PhpStorm-133.982/bin
+
+./phpstorm.sh 
+
+if you want to start it from home, then:
+
+./PhpStorm-133.982/bin/phpstorm.sh
+
+and to make an alias type this in the terminal;
+
+sudo nano ~/.bashrc
+
+Then usually i go to the bottom the file and write something like this:
+
+#CUSTOM ALIASES - JOHN
+alias storm='./PhpStorm-139.1348/bin/phpstorm.sh'
+alias phpstorm='./PhpStorm-139.1348/bin/phpstorm.sh'
+
+Then save with:
+CTRL+O (then press enter)
+CTRL+X (to exit the document)
+
+Then you need to reopen the terminal or just open a new terminal to get it working.
+
+----
+
+18. Gulp - gem undefined not install
+
+I got this error while starting on a project.
+
+gem undefined not install
+
+The problem was I had not installed ruby and sass on my machine.
+
+----
+
+17. Range slider
+Here is a nice slider for bootstrap.
+
+http://www.eyecon.ro/bootstrap-slider/
+
+----
+
+16. Bower update error 
+After updating bower i got command not found when trying to use bower. Also got some /usr/bin/bower/ no directory.
+
+What seemed to work was installing bower again.
+sudo npm install bower -g
+
+----
+
+15. io.js - npm not working
+For some kind of reason i could not get npm to work when installing io.js on Ubuntu 14.04
+
+I tried to re-install io.js and installing Node.js nothing seemed to work.
+
+The solution at the end was simple just install npm.
+
+sudo apt-get install npm, and then everything was working fine.
+
+----
+
+14. Updating Node.js
+
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
+Link: http://davidwalsh.name/upgrade-nodejs
+
+----
+
+13. Start node program without using the node command
+This works for Ubuntu and other unix like systems.
+Create a javascript file called something.js
+
+Insert this code:
+#!/usr/bin/node --harmony
+console.log("hello world");
+
+Then go to terminal and cd to the file directory and write:
+./something.js
+
+The output should be "hello world"
+
+----
+
+12. Specific smaller screen in Ubuntu shortcut
+
+You need a number pad for this to work.
+
+If you want to for example minize into the left top corner, you can pressing.
+
+CTRL + ALT + 9 (this only works with the number on the number pad)
+
+If you want a half screen left press
+
+CTRL + ALT + 6
+
+----
+
+11. Close telnet connection in terminal
+
+As i was Playing with Node and TCP i did not know how to disconnect
+from a connection in the terminal. With a little google help i figured out it was kind of easy.
+
+Press:
+CTRL + ] (I have a danish keyboard so in my case it is CTRL + Alt Gr + 9)
+then you should see something like this "telnet>" and then type
+quit
+
+Now the connection should be gone.
+
+----
+
+10. Change Shopify Checkout style
+
+I was helping a friend with his Shopify page where I had the problem of not being able to change the style of the checkout page.
+
+The page would not react to any styling I tried to add to neither style.css or checkout.css.
+
+Then stumbled on this forum on shopify which lead me to the answer.
+
+Create a new stylesheet and name it checkout.scss.liquid.
+
+And add the changes in there worked very well for me.
+
+
+Link: https://ecommerce.shopify.com/c/ecommerce-design/t/hide-parts-of-the-check-out-page-265487
+
+----
+
+9. 500 error in Laravel 5 form
+
+When you are using Laravel 5, the form helper is not there by default.
+
+And when you are trying to send a post request you get a 500 error because you need the CSRF token so your form need to look like this:
+
+<form class="form" data-remote action="/search" accept-charset="UTF-8">
+  <input name="_token" type="hidden" value="{!! csrf_token() !!}">
+  <!-- then the rest of the form input fields -->	
+</form>                
+
+Link: http://tutsnare.com/post-data-using-ajax-in-laravel-5/
+
+----
+
+8. Changing Hosts file Ubuntu
+If you want to change host file in Ubuntu, you can open the terminal and do the following.
+
+To get to the root press.
+$ cd / 
+$ cd etc
+$ sudo nano hosts
+
+Then just change the file as you want, and press O then enter and then X.
+
+----
+
+7. Cut(limit string length) string in PHP
+As I am usually using blade and other framworks the vanilla PHP templating is not always so sharp.
+Here are two functions to cut string.
+
+echo mb_strimwidth("Hello World", 0, 10, "...");
+or 
+$string = substr($string,0,10).'...';
+
+----
+
+6. Accessing illegal name properties from PHP Objects
+
+I quite a long time to figure this one out.
+
+I had a json decoded object where the object keys had some illegal characters "this-is-the-illegal-string".
+
+This mean that the usual way will not work.
+
+$array = ['hello' => 'John', 'hello-world' => 'John'];
+$objext = (object)$array;
+echo $object->['hello-world']; // This does not work
+
+The solution is to use curly braces
+echo $object->{'hello-world'}; // This works
+
+----
+
+5. Express params
+
+I just started using Express and had some problems on how to use params to display pages "blog" pages.
+
+app.get('/notes/:note', function(req, res){
+
+    var notes = require(__dirname + '/pages/content/notes.json');
+
+    res.render(__dirname + '/pages/note', { note: note. [req.params.note]});	
+
+});
+
+You will notice that I use the :note after the path /notes/:note
+
+This will catch the unknown params that are added to the path.
+
+You can use this string/value with req.param.note
+
+Note can ofcourse be what ever you want forexample :bla
+then you would use req.param.bla to get the value.
+
 ----
 
 4. Relative CSS link
@@ -52,3 +1197,40 @@ https://www.youtube.com/watch?v=GHTZn3atTcM
 
 ----
 
+ICONS:
+http://www.flaticon.com/
+
+
+BOOKMARKS:
+https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md
+http://ulyssesonline.com/2014/07/24/install-laravel-4-2-on-ubuntu-server-14-04-lts/
+http://raspberrywebserver.com/serveradmin/get-your-raspberry-pi-web-site-on-line.html
+Google fonts - http://katydecorah.com/font-library/#/tattoo
+
+LOOKUPS:
+http://www.imagemagick.org/
+
+TO READ:
+OOCSS, SMACSS & BEM
+https://mattstauffer.co/blog/organizing-css-oocss-smacss-and-bem
+http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+https://smacss.com/
+http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+https://coderwall.com/p/wixovg/bootstrap-without-all-the-debt
+https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
+http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
+
+My CSS Lookups:
+http://www.sitepoint.com/web-foundations/nth-typen-css-selector/
+http://www.sitepoint.com/web-foundations/understanding-nth-child-pseudo-class-expressions/
+
+
+Tutorial sites:
+https://sub.watchmecode.net/ - JavaScript & Node.js
+https://lynda.com
+http://teamthreehouse.com
+http://pluralsight.com
+http://codeschool.com
+http://udacity.com
+http://coursera.com
+http://udemy.com
