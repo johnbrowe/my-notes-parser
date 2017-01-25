@@ -1,6 +1,6 @@
 ﻿----
 
-78. Button should not submit
+78. Buttons should not submit
 
 I guess by default button type is "submit", so if you want button not to submit form.
 

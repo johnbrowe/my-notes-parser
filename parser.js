@@ -73,7 +73,7 @@ function parseText(array){
 
         text.forEach(function(txt, key){
             if(key === 0){
-                text[key] = "<h1>" + txt + "</h1>";
+                text[key] = "<h2>" + txt + "</h2>";
             } else {
                 text[key] = "<p>" + txt + "</p>";
             }
