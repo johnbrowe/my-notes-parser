@@ -15,7 +15,9 @@ module.exports = {
         // Filter and create new array
         result.forEach(function (text) {
 
-            newText = text.split("\r\n");
+            // Regex for \r\n, \r and \n
+            // Win uses \r\n and Unix uses \n
+            newText = text.split(/\r\n|\r|\n/);            
 
             // Cleans empty string from array
             newText = newText.filter(Boolean);;
@@ -37,16 +39,27 @@ module.exports = {
      */
     parseText(array) {
 
+        var that = this;
+
         array.forEach(function (text, key) {
+
+            var openTag = true;
 
             text.forEach(function (txt, key) {
                 if (key === 0) {
                     text[key] = "<h2>" + txt + "</h2>";
+                } else if (text[key].includes('´´´') && openTag == true){
+                    text[key] = "<pre><code>";
+                    openTag = false;    
+                } else if (text[key].includes('´´´') && openTag == false){
+                    text[key] = "</pre></code>";
+                    openTag = true;    
+                } else if (openTag == false){
+                    text[key] = that.escapeHTML(text[key]);        
                 } else {
                     text[key] = "<p>" + txt + "</p>";
                 }
             });
-            
         });
 
         return array;
@@ -81,6 +94,13 @@ module.exports = {
 
         return newArray;
 
+    },
+
+    /**
+     * Escape HTML
+     */
+    escapeHTML(html) {
+        return html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
 };

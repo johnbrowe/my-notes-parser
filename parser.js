@@ -20,13 +20,13 @@ fs.readFile(notes_path + 'notes.txt', 'utf8', function (err,data) {
 
     // Separate notes into array
     var result = data.split('----');
-
+   
     // Filter text
     var newArray = pt.filterText(result);
-    
+    console.log(newArray[1]);
     // Parse text
     newArray = pt.parseText(newArray);
-
+    
     // Flatten array
     newArray = pt.flattenArray(newArray);
 

@@ -4,8 +4,9 @@
 
 I guess by default button type is "submit", so if you want button not to submit form.
 
+´´´
 <button type="button"></button> // This will not submit
-
+´´´
 ----
 
 77. PHPStorm file encoding
@@ -29,11 +30,11 @@ http://codepen.io/mjtweaver/pen/bVxrEW
 75. Get index of element in JavaScript
 
 Get index of element in relation to it's siblings:
-
+´´´
 function indexOfNode (node) {
    return [].indexOf.call(node.parentNode.children, node.target)
 }
-
+´´´
 ----
 
 74. Stop program from starting on open Windows 7
