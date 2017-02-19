@@ -52,14 +52,11 @@ module.exports = {
     parseText(array) {
 
         array.forEach(function (text, key) {
-            var insideCodeTag = false;
-
             text.forEach(function (txt, key) {
                 if (key === 0) {
                     text[key] = "<h2>" + txt + "</h2>";
                 } else {
-                    text[key] = converter.makeHtml(txt);
-                    
+                    text[key] = converter.makeHtml(txt);                    
                 }
             });
         });

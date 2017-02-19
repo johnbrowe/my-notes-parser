@@ -47,23 +47,19 @@ describe('parseText()', function () {
         
     });
 
-    it('it should convert 3 thicks in a row into code element', function(){
+    it('it should convert 3 backticks into codeblock', function(){
 
         var result = [
             [ 
-            '78. Buttons should not submit',
-            'I guess by default button type is "submit", so if you want button not to submit form.',
-            '´´´',
-            '<button></button> // This will not submit',
-            '´´´'
+            '1. Codeblock',
+            'Here is a code block.\n``` \nfunction test() {\n  console.log("notice the blank line before this function?");\n}\n```',
             ] 
         ]
-
-        var notes = pt.parseText(result);
         
-        expect(notes).to.have.deep.property('[0][2]', '<pre><code>');
-        expect(notes).to.have.deep.property('[0][3]', '&lt;button&gt;&lt;/button&gt; // This will not submit');
-        expect(notes).to.have.deep.property('[0][4]', '</pre></code>');
+        var notes = pt.parseText(result);
+      
+        expect(notes).to.have.deep.property('[0][1]', '<p>Here is a code block.</p>\n<pre><code class="  language- ">function test() {\n  console.log("notice the blank line before this function?");\n}</code></pre>');
+        
     });
 
 });
