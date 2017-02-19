@@ -4,9 +4,11 @@
 
 I guess by default button type is "submit", so if you want button not to submit form.
 
-´´´
-<button type="button"></button> // This will not submit
-´´´
+``` 
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
 ----
 
 77. PHPStorm file encoding
@@ -1197,41 +1199,3 @@ I did not use the array_reverse function.
 https://www.youtube.com/watch?v=GHTZn3atTcM
 
 ----
-
-ICONS:
-http://www.flaticon.com/
-
-
-BOOKMARKS:
-https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md
-http://ulyssesonline.com/2014/07/24/install-laravel-4-2-on-ubuntu-server-14-04-lts/
-http://raspberrywebserver.com/serveradmin/get-your-raspberry-pi-web-site-on-line.html
-Google fonts - http://katydecorah.com/font-library/#/tattoo
-
-LOOKUPS:
-http://www.imagemagick.org/
-
-TO READ:
-OOCSS, SMACSS & BEM
-https://mattstauffer.co/blog/organizing-css-oocss-smacss-and-bem
-http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
-https://smacss.com/
-http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
-https://coderwall.com/p/wixovg/bootstrap-without-all-the-debt
-https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06
-http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
-
-My CSS Lookups:
-http://www.sitepoint.com/web-foundations/nth-typen-css-selector/
-http://www.sitepoint.com/web-foundations/understanding-nth-child-pseudo-class-expressions/
-
-
-Tutorial sites:
-https://sub.watchmecode.net/ - JavaScript & Node.js
-https://lynda.com
-http://teamthreehouse.com
-http://pluralsight.com
-http://codeschool.com
-http://udacity.com
-http://coursera.com
-http://udemy.com
