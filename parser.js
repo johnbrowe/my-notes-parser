@@ -1,7 +1,7 @@
 var dotenv = require('dotenv');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
-var _  = require('underscore');
+var _  = require('lodash');
 var pt = require('./parser-tool');
 
 // Load enviroment variables
@@ -23,7 +23,7 @@ fs.readFile(notes_path + 'notes.txt', 'utf8', function (err,data) {
    
     // Filter text
     var newArray = pt.filterText(result);
-    console.log(newArray[1]);
+    
     // Parse text
     newArray = pt.parseText(newArray);
     

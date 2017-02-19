@@ -1,5 +1,6 @@
 ### custom
 .env
+.vscode
 
 # IntelliJ project files
 .idea
