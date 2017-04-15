@@ -2,7 +2,7 @@
   "name": "my-notes-parser",
   "version": "0.0.2",
   "description": "git",
-  "main": "parser",
+  "main": "parser.js",
   "dependencies": {
     "dotenv": "^1.2.0",
     "jsonfile": "^2.2.2",
