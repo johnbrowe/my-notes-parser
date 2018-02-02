@@ -1,7 +1,7 @@
 let dotenv = require('dotenv');
 let fs = require('fs');
 let jsonfile = require('jsonfile');
-let _  = require('lodash');
+let _ = require('lodash');
 let pt = require('./parser-tool');
 
 // Load enviroment variables
@@ -13,28 +13,33 @@ console.log(notes_path + 'notes.txt');
  * Read file
  * Convert txt into parsed JSON file
  */
-fs.readFile(notes_path + 'notes.txt', 'utf8', ( err,data ) => {
-    if ( err ) return console.log( err );
+fs.readFile(notes_path + 'notes.txt', 'utf8', (err, data) => {
+  if (err) return console.log(err);
 
-    // Separate notes into array
-    let result = data.split( '----' );
-   
-    // Filter text
-    let newArray = pt.filterText( result );
-    
-    // Parse text
-    newArray = pt.parseText( newArray );
-    
-    // Flatten array
-    newArray = pt.flattenArray( newArray );
+  // Separate notes into array
+  let result = data.split('----');
 
-    // Convert array to object
-    let newObject = _.extend( {}, newArray );
+  // Filter text
+  let newArray = pt.filterText(result);
 
-    // Write file
-    jsonfile.writeFile( notes_path + 'notes.json', newObject, { spaces: 2 }, ( err ) => {
-        if ( err ) console.error( err );
+  // Parse text
+  newArray = pt.parseText(newArray);
 
-        console.log("Parsed");
-    });
+  // Flatten array
+  newArray = pt.flattenArray(newArray);
+
+  // Convert array to object
+  let newObject = _.extend({}, newArray);
+
+  // Write file
+  jsonfile.writeFile(
+    notes_path + 'notes.json',
+    newObject,
+    { spaces: 2 },
+    err => {
+      if (err) console.error(err);
+
+      console.log('Parsed');
+    }
+  );
 });
